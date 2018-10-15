@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My First React App</title>
+  </head>
+  <body>
+     <p>Sign UP NOW!!!</p>
+     <div id="app"></div>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.1.0/umd/react.development.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.1.0/umd/react-dom.development.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+     <script type="text/babel">
+
+     class ClassEnrollment extends React.Component {
+             constructor(props) {
+               super(props);
+               this.state = { names: [], text: '' };
+               this.handleChange = this.handleChange.bind(this);
+               this.handleSubmit = this.handleSubmit.bind(this);
+             }
+
+                render() {
+               return (
+                 <div>
+                   <h3>Class Enrollment List</h3>
+                   <Class Enrollment names = {this.state.names} />
+                   <form onSubmit = {this.handleSubmit}>
+                   <label htmmlFor="new-name">
+                   Enter your name here to be enrolled
+                   </label>
+                   <input
+                   id = "new-name"
+                   onChange = {this.handleChange}
+                   value = {this.state.text}
+                   />
+                   <button>
+                   Submit #{this.state.names.length + 1}
+                   </button>
+                   </form>
+                   </div>
+                 );
+               }
+                 handleChange(e) {
+                   this.setstate({text: e.target.value});
+                 }
+                 handleSubmit(e) {
+                   e.preventDefault();
+                   if (!this.state.text.length) {
+                     return;
+                   }
+                   const newName = {
+                     text: this.state.text,
+                     id: Data.now()
+                   };
+
+                   this.setstate(state => ({
+                     names: state.names.concat(newName),
+                     text: ''
+                   }));
+                 }
+                 class ClassList extends React.Component {
+                   render() {
+                     return (
+                       <ul>
+                       {this.props.names.map(name => (
+                         <li key = {name.id}>{name.text}</li>
+                       ))}
+                       </ul>
+                     );
+                   }
+                 }
+           ReactDOM.render( <ClassEnrollment />, mountNode);
+     </script>
+  </body>
+</html>
