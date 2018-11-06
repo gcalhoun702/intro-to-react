@@ -33,12 +33,21 @@ toggleComplete(index) {
   this.setState({ todos: todos });
 }
 
+deleteComplete(index) {
+  const todos = this.state.todos.slice();
+  const deleteTodo = todos[index];
+  const filterTodo = this.state.todos.slice().filter(todo => todo !== deleteTodo);
+
+  this.setState({todos: filterTodo});
+}
+// pass delete function as prop to ToDo component
+
   render() {
     return (
       <div className="App">
         <ul>
         { this.state.todos.map( (todo, index) =>
-          <ToDo key={index} description={todo.description} isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+          <ToDo key={index} description={todo.description} isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } deleteComplete={ () => this.deleteComplete(index) } />
         )}
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
